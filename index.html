@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="greet.js"></script>
+    <script src="ENOUGHAIRTIME.js"></script>
+    <script src="taxifee.js"></script>
+    <script src="Phonebill.js"></script>
+    <script src="greet-widget.js"></script>
+    <script src="//unpkg.com/alpinejs"></script>
+    <style>
+        .message {
+            padding: 1em;
+            background-color: darkorange;
+            margin-bottom: 1em;
+        }
+
+        .input>label {
+            display: inline-block;
+            width: 15em;
+            padding: 0.5em;
+            font-weight: bold;
+        }
+        body{ 
+            background-color: pink;
+
+        }
+        .first2{
+            display:flex ;
+            padding: 5em;
+            width: 100%;
+            margin-left: 10em;
+        }
+        .last2{
+            display: flex;
+            padding: 5em;
+            width: 100%;
+            margin-left: 10em;
+
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body >
+    <h1>Bootcamp Widgets</h1>
+    <div class="first2">
+    <div x-data="greetWidget" style="background-color: rgb(254, 112, 254);">
+        <h2>Greet Widget </h2>
+
+        <div x-show="message.length >  0" class=" message" x-text="message">
+            you will be greeted here...
+        </div>
+
+        <label for="name">Please enter your name </label>
+        <input type="text" x-model="name" id="name">
+        <button x-on:click="greetMe">Greet!</button>
+    </div>
+    <div x-data="{
+        airtimeUsage : '',
+        amountAvailable: '0.00',
+        airtimeMessage: '',
+        calculate(){
+            this.airtimeMessage = enoughAirtime(this.airtimeUsage, this.amountAvailable)
+        }
+    }" style="background-color: rgb(144, 240, 144);">
+        <h2>Enough Airtime</h2>
+
+        <div class="input">
+            <label for="usage">please enter your airtime usage</label>
+            <input type="text" x-model="airtimeUsage" id="usage">
+        </div>
+        <div class="input">
+            <label for="amount">amount available</label>
+            <input type="text" x-model="amountAvailable" id="amount">
+        </div>
+        <div class=" message" x-text="airtimeMessage">
+            <div> amount of airtime left displayed here...
+            </div>
+        </div>
+        <button x-on:click="calculate">calculate airtime usage</button>
+    </div>
+    </div>
+    <div class="last2">
+    <div x-data="{
+    shiftWorking:'', 
+    transportMoney :'',
+    tellMeshift(){
+    this.transportMoney =transportFee(this.shiftWorking)
+    }
+    }" style="background-color: rgb(139, 139, 240);">
+        <h2>Taxi Fee </h2>
+        <div class="fee">
+            <label for="shift">please enter your the shift</label>
+            <input type="text" x-model="shiftWorking" id="shift">
+        </div>
+        <div class=" message" x-text="transportMoney">
+            <div> price based on the shift you are working...
+            </div>
+        </div>
+        <button x-on:click="tellMeshift">show money</button>
+    </div>
+
+    <div x-data="{
+            servicesUsed:'', 
+            theBill :'',
+            tellMethebill(){
+            this.theBill = totalPhoneBill(this.servicesUsed)
+            }
+            }" style="background-color: rgb(245, 103, 126);">
+        <h2>Phone Bill</h2>
+        <div class="input">
+            <label for="services">please enter your airtime usage</label>
+            <input type="text" x-model="servicesUsed" id="services">
+        </div>
+
+        <div class=" message" x-text="theBill">
+            <div> amount of airtime left displayed here...
+            </div>
+        </div>
+        <button x-on:click="tellMethebill">the billing</button>
+    </div>
+    </div>
+    
+
+</body>
+
+</html>
